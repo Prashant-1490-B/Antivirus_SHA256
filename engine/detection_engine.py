@@ -1,13 +1,25 @@
 from scanner.file_scanner import scan_directory
 from hashing.hash_engine import calculate_sha256
 from signatures.signature_checker import load_signatures, is_malicious
-from quarantine.quarantine_manager import quarantine_file
 
 
-def run_scan(scan_path, signature_db_path, enable_quarantine=False):
+def run_scan(scan_path, signature_db_path):
+    """
+    Runs a full antivirus scan on a directory.
+
+    Args:
+        scan_path (str): Directory to scan
+        signature_db_path (str): Path to malware signatures file
+
+    Returns:
+        list: List of tuples (file_path, file_hash, status)
+    """
     results = []
 
+    # Load malware signatures once
     signature_set = load_signatures(signature_db_path)
+
+    # Scan files
     files = scan_directory(scan_path)
 
     for file_path in files:
@@ -15,15 +27,9 @@ def run_scan(scan_path, signature_db_path, enable_quarantine=False):
 
         if is_malicious(file_hash, signature_set):
             status = "MALICIOUS"
-
-            quarantined_path = None
-            if enable_quarantine:
-                quarantined_path = quarantine_file(file_path)
-
-            results.append((file_path, file_hash, status, quarantined_path))
-
         else:
             status = "CLEAN"
-            results.append((file_path, file_hash, status, None))
+
+        results.append((file_path, file_hash, status))
 
     return results
