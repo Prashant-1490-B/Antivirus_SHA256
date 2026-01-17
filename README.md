@@ -1,5 +1,8 @@
 # Basic Antivirus Simulation (Signature-Based Scanner)
 
+## Project Documentation
+[Antivirus-SHA256.pdf](https://github.com/user-attachments/files/24687117/Antivirus-SHA256.pdf)
+
 ## Overview
 This project is a **production-style antivirus simulation** built using Python that demonstrates how **signature-based malware detection** works internally.
 
