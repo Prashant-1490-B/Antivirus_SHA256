@@ -1,13 +1,28 @@
 from scanner.file_scanner import scan_directory
 from hashing.hash_engine import calculate_sha256
 from signatures.signature_checker import load_signatures, is_malicious
-from quarantine.quarantine_manager import quarantine_file
+from logs.logger import log_event   
 
+def run_scan(scan_path, signature_db_path):
+    """
+    Runs a full antivirus scan on a directory.
 
-def run_scan(scan_path, signature_db_path, enable_quarantine=False):
+    Args:
+        scan_path (str): Directory to scan
+        signature_db_path (str): Path to malware signatures file
+
+    Returns:
+        list: List of tuples (file_path, file_hash, status)
+    """
     results = []
 
+    # Log scan start
+    log_event(f"Scan started on path: {scan_path}")
+
+    # Load malware signatures once
     signature_set = load_signatures(signature_db_path)
+
+    # Scan files
     files = scan_directory(scan_path)
 
     for file_path in files:
@@ -15,15 +30,14 @@ def run_scan(scan_path, signature_db_path, enable_quarantine=False):
 
         if is_malicious(file_hash, signature_set):
             status = "MALICIOUS"
-
-            quarantined_path = None
-            if enable_quarantine:
-                quarantined_path = quarantine_file(file_path)
-
-            results.append((file_path, file_hash, status, quarantined_path))
-
+            log_event(f"MALICIOUS file detected | Path: {file_path}")
         else:
             status = "CLEAN"
-            results.append((file_path, file_hash, status, None))
+            log_event(f"CLEAN file scanned | Path: {file_path}")
+
+        results.append((file_path, file_hash, status))
+
+    # Log scan completion
+    log_event("Scan completed")
 
     return results
