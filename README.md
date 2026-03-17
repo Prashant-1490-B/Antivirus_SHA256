@@ -9,11 +9,6 @@ This project is a **production-style antivirus simulation** built using Python t
 The antivirus scans user-specified directories, generates cryptographic hashes (SHA-256) of files, compares them against a known malware signature database, and reports whether files are **CLEAN** or **MALICIOUS**.  
 All scan activity is logged to provide a forensic and audit trail.
 
-> ⚠️ **Disclaimer**  
-> This project is strictly for **educational and ethical purposes only**.  
-> It does not detect real malware unless real malware signatures are intentionally added.  
-> Do not use this tool on systems or files without proper authorization.
-
 ---
 
 ## Key Concepts Demonstrated
@@ -60,3 +55,10 @@ Enter directory path to scan (default: .): C:\Users\Documents
 
 Scan completed.
 Logs saved to logs/scan.log
+
+---
+
+> ⚠️ **Disclaimer**  
+> This project is strictly for **educational and ethical purposes only**.  
+> It does not detect real malware unless real malware signatures are intentionally added.  
+> Do not use this tool on systems or files without proper authorization.
