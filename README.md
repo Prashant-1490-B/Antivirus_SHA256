@@ -52,6 +52,7 @@ Enter directory path to scan (default: .): C:\Users\Documents
 [CLEAN] C:\Users\Documents\notes.txt
 <br>
 [MALICIOUS] C:\Users\Documents\test_scanner.py
+<br>
 Scan completed.
 Logs saved to logs/scan.log
 
