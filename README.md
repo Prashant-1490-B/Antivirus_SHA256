@@ -10,7 +10,7 @@ The antivirus scans user-specified directories, generates cryptographic hashes (
 All scan activity is logged to provide a forensic and audit trail.
 
 ---
-
+---
 ## Key Concepts Demonstrated
 - Signature-based malware detection
 - Cryptographic hashing (SHA-256)
